@@ -4,14 +4,14 @@ import math
 
 # Creación de la clase Neuron
 class Neuron:
-    def __init__(self,pesos=[],b=0,funcion='sigmoid'): #metodo constructor
+    def __init__(self, pesos=[], b=0, funcion='sigmoid'):
         self.pesos = pesos
         self.b = b
         self.funcion = funcion
     
     def run(self, entradas=[]):
-        sum = np.dot(np.array(entradas),self.pesos)
-        sum += self.b # aplicamos sesgo/bias
+        sum = np.dot(np.array(entradas), self.pesos)
+        sum += self.b
 
         if self.funcion == 'sigmoid':
             return self.__sigmoid(sum)
@@ -20,7 +20,7 @@ class Neuron:
         elif self.funcion == 'tanh':
             return self.__tanh(sum)
         else:
-            print('Función no valida, introduzca una valida(sigmoid, relu o tanh)')
+            print('Función no valida, introduzca una valida (sigmoid, relu o tanh)')
     
     def cambia_peso(self, pesos):
         self.pesos = pesos
@@ -28,19 +28,17 @@ class Neuron:
     def cambia_sesgo(self, b):
         self.b = b
 
-    # definimos cada metodo estatico, que serán las funciones que elijan en la app
     @staticmethod
     def __sigmoid(x):
-        return 1/(1 + math.e ** - x)
+        return 1/(1 + math.e ** -x)
     
     @staticmethod
     def __relu(x):
-        return 0
+        return max(0, x)
     
     @staticmethod
     def __tanh(x):
         return math.tanh(x)
-
 
 st.image('imagen_neurona.jpg', caption=None)
 
@@ -87,6 +85,8 @@ st.text(f'Entradas: {valores_entradas}')
 
 st.divider()
 
+funciones1 = ['Sigmoide','ReLU','Tangente hiperbólica']
+
 col1,col2 = st.columns(2)
 
 with col1:
@@ -95,7 +95,7 @@ with col1:
 
 with col2:
     st.subheader('Función a activar')
-    elige_fun = st.selectbox('Elige la función a activar','Sigmoide','ReLU','Tangente hiperbólica')
+    elige_fun = st.selectbox('Elige la función a activar', list(funciones1))
 
 st.divider()
 
@@ -103,5 +103,5 @@ funciones = {'Sigmoide':'sigmoid', 'ReLU':'relu', 'Tangente hiperbólica': 'tanh
 
 
 if st.button('Submit'):
-    val = Neuron(pesos=valores_pesos, b=sesgo, funcion=[elige_fun])
-    st.text(f'Esta es la salida de la neurona es {val.run(entradas=valores_entradas)}')
+    val = Neuron(pesos=valores_pesos, b=sesgo, funcion=funciones[elige_fun])
+    st.write(f'Esta es la salida de la neurona: {val.run(entradas=valores_entradas)}')
