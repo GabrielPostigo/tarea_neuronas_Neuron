@@ -2,6 +2,46 @@ import streamlit as st
 import numpy as np
 import math
 
+# Creación de la clase Neuron
+class Neuron:
+    def __init__(self,pesos=[],b=0,funcion='sigmoid'): #metodo constructor
+        self.pesos = pesos
+        self.b = b
+        self.funcion = funcion
+    
+    def run(self, entradas=[]):
+        sum = np.dot(np.array(entradas),self.pesos)
+        sum += self.b # aplicamos sesgo/bias
+
+        if self.funcion == 'sigmoid':
+            return self.__sigmoid(sum)
+        elif self.funcion == 'relu':
+            return Neuron.__relu(sum)
+        elif self.funcion == 'tanh':
+            return self.__tanh(sum)
+        else:
+            print('Función no valida, introduzca una valida(sigmoid, relu o tanh)')
+    
+    def cambia_peso(self, pesos):
+        self.pesos = pesos
+
+    def cambia_sesgo(self, b):
+        self.b = b
+
+    # definimos cada metodo estatico, que serán las funciones que elijan en la app
+    @staticmethod
+    def __sigmoid(x):
+        return 1/(1 + math.e ** - x)
+    
+    @staticmethod
+    def __relu(x):
+        return 0
+    
+    @staticmethod
+    def __tanh(x):
+        return math.tanh(x)
+
+
 st.image('imagen_neurona.jpg', caption=None)
 
 st.title('Simulador de Neurona')
@@ -61,44 +101,6 @@ st.divider()
 
 funciones = {'Sigmoide':'sigmoid', 'ReLU':'relu', 'Tangente hiperbólica': 'tanh'}
 
-# Creación de la clase Neuron
-class Neuron:
-    def __init__(self,pesos=[],b=0,funcion='sigmoid'): #metodo constructor
-        self.pesos = pesos
-        self.b = b
-        self.funcion = funcion
-    
-    def run(self, entradas=[]):
-        sum = np.dot(np.array(entradas),self.pesos)
-        sum += self.b # aplicamos sesgo/bias
-
-        if self.funcion == 'sigmoid':
-            return self.__sigmoid(sum)
-        elif self.funcion == 'relu':
-            return Neuron.__relu(sum)
-        elif self.funcion == 'tanh':
-            return self.__tanh(sum)
-        else:
-            print('Función no valida, introduzca una valida(sigmoid, relu o tanh)')
-    
-    def cambia_peso(self, pesos):
-        self.pesos = pesos
-
-    def cambia_sesgo(self, b):
-        self.b = b
-
-    # definimos cada metodo estatico, que serán las funciones que elijan en la app
-    @staticmethod
-    def __sigmoid(x):
-        return 1/(1 + math.e ** - x)
-    
-    @staticmethod
-    def __relu(x):
-        return 0
-    
-    @staticmethod
-    def __tanh(x):
-        return math.tanh(x)
 
 if st.button('Submit'):
     val = Neuron(pesos=valores_pesos, b=sesgo, funcion=[elige_fun])
