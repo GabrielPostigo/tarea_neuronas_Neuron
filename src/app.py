@@ -54,13 +54,13 @@ st.divider()
 st.subheader('Pesos')
 
 valores_pesos=[] #aquí guardamos los valores que introduciremos como pesos
-columnas_pesos= st.columns(num_entradas) # con esto establecemos cuantas columnas habrá
+columnas= st.columns(num_entradas) # con esto establecemos cuantas columnas habrá
 
 for i in range(num_entradas):
     valores_pesos.append(i) # añadimos el valor introducido
 
     #creamos el molde de columnas para los pesos
-    with columnas_pesos[i]:
+    with columnas[i]:
         st.markdown(f'w<sub>{i}</sub>', unsafe_allow_html=True)
         valores_pesos[i] = st.number_input(f'Entrada de w<sub>{i}</sub>',label_visibility='collapsed')
     
@@ -72,14 +72,14 @@ st.divider()
 st.subheader('Entradas')
 
 valores_entradas=[]
-columnas_entradas = st.columns(num_entradas)
 
 for i in range(num_entradas):
     valores_entradas.append(i)
 
-    with columnas_entradas[i]:
+    with columnas[i]:
         st.markdown(f'x<sub>{i}</sub>', unsafe_allow_html=True)
-        valores_entradas[i] = st.number_input('Entrada de x<sub>{i}</sub>',label_visibility='collapsed')
+        valores_entradas[i] = st.number_input(f'Entrada de x<sub>{i}</sub>',label_visibility='collapsed')
+    
 
 st.text(f'Entradas: {valores_entradas}')
 
