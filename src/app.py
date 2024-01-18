@@ -9,7 +9,7 @@ st.title('Simulador de Neurona')
 st.divider() # divisores, puramente esteticos
 
 # Mediante este slider, introducimos cuantas entradas y pesos habrá
-num_entradas = st.lider('Elige el número de entradas y pesos que tendrá la neurona',1,10) 
+num_entradas = st.slider('Elige el número de entradas y pesos que tendrá la neurona',1,10) 
 
 st.divider()
 
