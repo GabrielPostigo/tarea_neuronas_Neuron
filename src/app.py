@@ -51,10 +51,11 @@ num_entradas = st.slider('Elige el número de entradas y pesos que tendrá la ne
 
 st.divider()
 
+st.subheader('Pesos')
+
 valores_pesos=[] #aquí guardamos los valores que introduciremos como pesos
 columnas_pes= st.columns(num_entradas) # con esto establecemos cuantas columnas habrá
 
-st.subheader('Pesos')
 
 for i in range(num_entradas):
     valores_pesos.append(i) # añadimos el valor introducido
